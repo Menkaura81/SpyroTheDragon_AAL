@@ -20,11 +20,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import dam.pmdm.spyrothedragon.databinding.ActivityMainBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideBinding;
+import dam.pmdm.spyrothedragon.databinding.GuidePersonajesBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private GuideBinding guideBinding;
+    private GuidePersonajesBinding personajesBinding;
     NavController navController = null;
 
     private Boolean needToStartGuide = true; // ESTO HAY QUE CAMBIARLO A SHAREDPREFERENCES
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         guideBinding = binding.includeLayout;
+        personajesBinding = binding.includeLayoutPersonajes;
         setContentView(binding.getRoot());
 
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
@@ -72,7 +75,27 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void comenzarGuia(View view) {
+        personajesBinding.botonSaltar.setOnClickListener(this::saltarGuide);
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(guideBinding.guideLayout, "alpha", 1f, 0f);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(personajesBinding.bocadilloPersonajes, "alpha", 0f, 1f);
 
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(fadeOut, fadeIn);
+        animatorSet.start();
+
+        fadeOut.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                guideBinding.guideLayout.setVisibility(View.GONE);
+                personajesBinding.guideLayoutPersonajes.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void saltarGuide(View view) {
+        personajesBinding.guideLayoutPersonajes.setVisibility(View.GONE);
+
+        needToStartGuide = false; // ESTO HAY QUE CAMBIARLO A SHAREDPREFERENCES
     }
 
     private boolean selectedBottomMenu(@NonNull MenuItem menuItem) {

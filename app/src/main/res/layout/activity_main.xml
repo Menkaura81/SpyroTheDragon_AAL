@@ -27,14 +27,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
-    <include
-        android:id="@+id/includeLayout"
-        layout="@layout/guide" />
+    <FrameLayout
+        android:id="@+id/guideContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="10dp">  <!-- Asegura que esté encima -->
 
-    <include
-        android:id="@+id/includeLayout2"
-        layout="@layout/guide_personajes" />
+        <include
+            android:id="@+id/includeLayout"
+            layout="@layout/guide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
+        <include
+            android:id="@+id/includeLayout_personajes"
+            layout="@layout/guide_personajes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

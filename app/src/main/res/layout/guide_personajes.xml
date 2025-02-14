@@ -6,19 +6,44 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:id="@+id/guideLayout"
+    android:id="@+id/guideLayoutPersonajes"
     android:visibility="gone">
 
-    <ImageView
-        android:id="@+id/pulseImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="-70dp"
-        android:layout_marginStart="-70dp"
-        android:src="@drawable/bocadillo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:id="@+id/bocadillo_personajes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+        <ImageView
+            android:id="@+id/pulseImage"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="-90dp"
+            android:layout_marginStart="-90dp"
+            android:src="@drawable/bocadillo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="90dp"
+            android:layout_marginStart="30dp"
+            android:text="@string/bocadillo_personajes" />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/boton_saltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saltar guia"
+        android:background="@color/purple_transparent"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="20dp"/>
 </FrameLayout>

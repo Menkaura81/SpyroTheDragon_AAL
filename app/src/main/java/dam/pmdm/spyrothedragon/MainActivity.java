@@ -1,29 +1,40 @@
 package dam.pmdm.spyrothedragon;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import dam.pmdm.spyrothedragon.databinding.ActivityMainBinding;
+import dam.pmdm.spyrothedragon.databinding.GuideBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private GuideBinding guideBinding;
     NavController navController = null;
+
+    private Boolean needToStartGuide = true; // ESTO HAY QUE CAMBIARLO A SHAREDPREFERENCES
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        guideBinding = binding.includeLayout;
         setContentView(binding.getRoot());
 
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
@@ -47,6 +58,20 @@ public class MainActivity extends AppCompatActivity {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
         });
+
+        initializeGuide();
+
+    }
+
+    private void initializeGuide() {
+        guideBinding.botonComenzar.setOnClickListener(this::comenzarGuia);
+        if (needToStartGuide){
+            guideBinding.guideLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    private void comenzarGuia(View view) {
 
     }
 

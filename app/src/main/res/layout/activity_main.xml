@@ -27,4 +27,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
+    <include
+        android:id="@+id/includeLayout"
+        layout="@layout/guide" />
+
+    <include
+        android:id="@+id/includeLayout2"
+        layout="@layout/guide_personajes" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

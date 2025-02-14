@@ -6,4 +6,10 @@
     <string name="title_about">Acerca de</string>
     <string name="text_about">Aplicación desarrollada por \n <b>Lindsay Barrero Martínez.</b></string>
     <string name="accept">Aceptar</string>
+    <string name="bienvenido">BIENVENIDO</string>
+    <string name="guide_1">Prepárate para explorar el mundo mágico de esta aplicación inspirada en</string>
+    <string name="guide_2">Aquí aprenderás a navegar por pestañas llenas de dragones, mundos fascinantes y montones de tesoros brillantes</string>
+    <string name="guide_3">¿Listo para empezar?</string>
+    <string name="guide_4">Pulsa \"Comenzar\" y deja que Spyro te lleve volando a través de esta guía interactiva</string>
+    <string name="guide_boton">Comenzar</string>
 </resources>

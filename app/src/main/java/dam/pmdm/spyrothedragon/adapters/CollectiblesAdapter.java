@@ -1,10 +1,14 @@
 package dam.pmdm.spyrothedragon.adapters;
 
+import android.content.Context;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,9 +20,23 @@ import dam.pmdm.spyrothedragon.models.Collectible;
 public class CollectiblesAdapter extends RecyclerView.Adapter<CollectiblesAdapter.CollectiblesViewHolder> {
 
     private List<Collectible> list;
+    private Context context;
+    private int clickCount = 0;
+    private Handler handler = new Handler();
+    private Runnable resetClickCountRunnable;
 
     public CollectiblesAdapter(List<Collectible> collectibleList) {
+
         this.list = collectibleList;
+        this.context = context;
+
+        // Runnable para resetear el contador de clics si no se llega a 4 en un periodo determinado
+        resetClickCountRunnable = new Runnable() {
+            @Override
+            public void run() {
+                clickCount = 0;
+            }
+        };
     }
 
     @Override
@@ -35,11 +53,37 @@ public class CollectiblesAdapter extends RecyclerView.Adapter<CollectiblesAdapte
         // Cargar la imagen (simulado con un recurso drawable)
         int imageResId = holder.itemView.getContext().getResources().getIdentifier(collectible.getImage(), "drawable", holder.itemView.getContext().getPackageName());
         holder.imageImageView.setImageResource(imageResId);
+
+        // Verificar si el item tiene el nombre "Gemas"
+        if (collectible.getName().equals("Gemas")) {
+            // Listener solo para el Collectible específico
+            holder.itemView.setOnClickListener(view -> {
+                clickCount++;
+
+                // Si el número de clics alcanza 4, reproducir el video
+                if (clickCount == 4) {
+                    // Reproducir video (puedes agregar aquí tu lógica de video)
+                    Log.d("CollectiblesAdapter", "Reproduciendo video");
+
+                    // Resetear el contador después de reproducir el video
+                    clickCount = 0;
+                }
+
+                // Resetear el contador si no se llega a 4 en 1 segundo
+                handler.removeCallbacks(resetClickCountRunnable);
+                handler.postDelayed(resetClickCountRunnable, 1000); // Resetear después de 1 segundo
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    // Método para reproducir el video
+    private void playVideo() {
+
     }
 
     public static class CollectiblesViewHolder extends RecyclerView.ViewHolder {

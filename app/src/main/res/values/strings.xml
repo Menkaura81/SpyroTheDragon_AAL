@@ -18,4 +18,6 @@
     <string name="guide_mundos">Aquí podrás descubrir \ntodos los maravillos mundos\n en los que Spyro vivirá\n sus aventuras</string>
     <string name="guide_coleccionables">El mundo de Spyro tiene\n muchos tesoros\n coleccionables, descubrelos\n todos aquí</string>
     <string name="guide_informacion">Aqui podrás consultar\n informacion acerca \nde la aplicacion.</string>
+    <string name="terminar">TERMINAR</string>
+    <string name="guide_final">Hemos aprendido donde consultar los personajes, los mundos y los coleccionables de Spyro, también hemos aprendido donde consultar quien ha desarrollado la aplicación (soy yo... jijijiji), pulsa \"Terminar\" para continuar usando la aplicación</string>
 </resources>

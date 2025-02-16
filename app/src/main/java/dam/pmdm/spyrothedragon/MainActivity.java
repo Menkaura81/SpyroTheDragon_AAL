@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import androidx.navigation.ui.NavigationUI;
 import dam.pmdm.spyrothedragon.databinding.ActivityMainBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideColeccionablesBinding;
+import dam.pmdm.spyrothedragon.databinding.GuideFinalBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideInformacionBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideMundosBinding;
 import dam.pmdm.spyrothedragon.databinding.GuidePersonajesBinding;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private GuideMundosBinding mundosBinding;
     private GuideColeccionablesBinding coleccionablesBinding;
     private GuideInformacionBinding informacionBinding;
+    private GuideFinalBinding finalBinding;
     NavController navController = null;
 
     private Boolean needToStartGuide = true; // ESTO HAY QUE CAMBIARLO A SHAREDPREFERENCES
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mundosBinding = binding.includeLayoutMundos;
         coleccionablesBinding = binding.includeLayoutColeccionables;
         informacionBinding = binding.includeLayoutInformacion;
+        finalBinding = binding.includeLayoutFinal;
         setContentView(binding.getRoot());
 
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
@@ -76,12 +80,25 @@ public class MainActivity extends AppCompatActivity {
 
         initializeGuide();
 
+
     }
 
     private void initializeGuide() {
         guideBinding.botonComenzar.setOnClickListener(this::comenzarGuia);
         if (needToStartGuide){
             guideBinding.guideLayout.setVisibility(View.VISIBLE);
+
+            // Reproducir sonido inicio Guia
+            SoundPool soundPool = new SoundPool.Builder().setMaxStreams(1).build();
+            int soundId = soundPool.load(this, R.raw.up, 1);
+            soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    if (status == 0) {
+                        soundPool.play(soundId, 1.0f, 1.0f, 0, 0, 1.0f);
+                    }
+                }
+            });
         }
     }
 
@@ -90,9 +107,21 @@ public class MainActivity extends AppCompatActivity {
         personajesBinding.botonSaltar.setOnClickListener(this::saltarGuide);
         personajesBinding.botonSiguiente.setOnClickListener(this::mundosGuide);
 
+        // Reproducir sonido cambio de pantalla
+        SoundPool soundPool = new SoundPool.Builder().setMaxStreams(1).build();
+        int soundId = soundPool.load(this, R.raw.cambio, 1);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if (status == 0) {
+                    soundPool.play(soundId, 1.0f, 1.0f, 0, 0, 1.0f);
+                }
+            }
+        });
+
+        // Colocar circulo en el centro de la pestaña correspondiente
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int screenWidth = displayMetrics.widthPixels;
-
         ImageView circulo = findViewById(R.id.circulo);
         circulo.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -111,9 +140,8 @@ public class MainActivity extends AppCompatActivity {
 
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(guideBinding.guideLayout, "alpha", 1f, 0f);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(personajesBinding.bocadilloPersonajes, "alpha", 0f, 1f);
-        ObjectAnimator fadeIn2 = ObjectAnimator.ofFloat(personajesBinding.circulo, "alpha", 0f, 1f);
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(fadeOut, fadeIn, fadeIn2);
+        animatorSet.playSequentially(fadeOut, fadeIn);
         animatorSet.start();
 
         fadeOut.addListener(new AnimatorListenerAdapter() {
@@ -129,6 +157,18 @@ public class MainActivity extends AppCompatActivity {
         navController.navigate(R.id.navigation_worlds);
         mundosBinding.botonSaltar.setOnClickListener(this::saltarGuide);
         mundosBinding.botonSiguiente.setOnClickListener(this::coleccionablesGuide);
+
+        // Reproducir sonido cambio de pantalla
+        SoundPool soundPool = new SoundPool.Builder().setMaxStreams(1).build();
+        int soundId = soundPool.load(this, R.raw.cambio, 1);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if (status == 0) {
+                    soundPool.play(soundId, 1.0f, 1.0f, 0, 0, 1.0f);
+                }
+            }
+        });
 
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(personajesBinding.bocadilloPersonajes, "alpha", 1f, 0f);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(mundosBinding.bocadilloMundos, "alpha", 0f, 1f);
@@ -149,6 +189,18 @@ public class MainActivity extends AppCompatActivity {
         navController.navigate(R.id.navigation_collectibles);
         coleccionablesBinding.botonSaltar.setOnClickListener(this::saltarGuide);
         coleccionablesBinding.botonSiguiente.setOnClickListener(this::informacionGuide);
+
+        // Reproducir sonido cambio de pantalla
+        SoundPool soundPool = new SoundPool.Builder().setMaxStreams(1).build();
+        int soundId = soundPool.load(this, R.raw.cambio, 1);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if (status == 0) {
+                    soundPool.play(soundId, 1.0f, 1.0f, 0, 0, 1.0f);
+                }
+            }
+        });
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int screenWidth = displayMetrics.widthPixels;
@@ -185,6 +237,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void informacionGuide(View view) {
         informacionBinding.botonSaltar.setOnClickListener(this::saltarGuide);
+        informacionBinding.botonSiguiente.setOnClickListener(this::lastGuide);
+
+        // Reproducir sonido cambio de pantalla
+        SoundPool soundPool = new SoundPool.Builder().setMaxStreams(1).build();
+        int soundId = soundPool.load(this, R.raw.cambio, 1);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if (status == 0) {
+                    soundPool.play(soundId, 1.0f, 1.0f, 0, 0, 1.0f);
+                }
+            }
+        });
 
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(coleccionablesBinding.bocadilloColeccionables, "alpha", 1f, 0f);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(informacionBinding.bocadilloInformacion, "alpha", 0f, 1f);
@@ -202,11 +267,54 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void lastGuide(View view) {
+        navController.navigate(R.id.navigation_characters);
+        finalBinding.botonTerminar.setOnClickListener(this::saltarGuide);
+
+        // Reproducir sonido cambio de pantalla
+        SoundPool soundPool = new SoundPool.Builder().setMaxStreams(1).build();
+        int soundId = soundPool.load(this, R.raw.cambio, 1);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if (status == 0) {
+                    soundPool.play(soundId, 1.0f, 1.0f, 0, 0, 1.0f);
+                }
+            }
+        });
+
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(informacionBinding.bocadilloInformacion, "alpha", 1f, 0f);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(finalBinding.guideLayoutFinal, "alpha", 0f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(fadeOut, fadeIn);
+        animatorSet.start();
+
+        fadeOut.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                informacionBinding.guideLayoutInformacion.setVisibility(View.GONE);
+                finalBinding.guideLayoutFinal.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
     private void saltarGuide(View view) {
         personajesBinding.guideLayoutPersonajes.setVisibility(View.GONE);
         mundosBinding.guideLayoutMundos.setVisibility(View.GONE);
         coleccionablesBinding.guideLayoutColeccionables.setVisibility(View.GONE);
         informacionBinding.guideLayoutInformacion.setVisibility(View.GONE);
+        finalBinding.guideLayoutFinal.setVisibility(View.GONE);
+        // Reproducir sonido final de guia
+        SoundPool soundPool = new SoundPool.Builder().setMaxStreams(1).build();
+        int soundId = soundPool.load(this, R.raw.finalizar, 1);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if (status == 0) {
+                    soundPool.play(soundId, 1.0f, 1.0f, 0, 0, 1.0f);
+                }
+            }
+        });
         needToStartGuide = false; // ESTO HAY QUE CAMBIARLO A SHAREDPREFERENCES
     }
 

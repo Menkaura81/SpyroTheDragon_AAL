@@ -29,6 +29,7 @@ import dam.pmdm.spyrothedragon.databinding.GuideInformacionBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideMundosBinding;
 import dam.pmdm.spyrothedragon.databinding.GuidePersonajesBinding;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -77,8 +78,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         initializeGuide();
-
-
     }
 
     private void initializeGuide() {
@@ -86,8 +85,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE);
         boolean guideShown = sharedPreferences.getBoolean("guide_shown", false);
 
-
+        // Listener del boton de comenzar
         guideBinding.botonComenzar.setOnClickListener(this::comenzarGuia);
+
+        // Si la guía no ha sido mostrada, la mostramos
         if (!guideShown){
             guideBinding.guideLayout.setVisibility(View.VISIBLE);
 
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void comenzarGuia(View view) {
+        // Listeners de los botones
         personajesBinding.botonSaltar.setOnClickListener(this::saltarGuide);
         personajesBinding.botonSiguiente.setOnClickListener(this::mundosGuide);
 
@@ -161,7 +163,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void mundosGuide(View view){
+        // Cambio de pestaña
         navController.navigate(R.id.navigation_worlds);
+        // Listener de los botones
         mundosBinding.botonSaltar.setOnClickListener(this::saltarGuide);
         mundosBinding.botonSiguiente.setOnClickListener(this::coleccionablesGuide);
 
@@ -177,13 +181,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        // Animaciones de los bocadillos
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(personajesBinding.bocadilloPersonajes, "alpha", 1f, 0f);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(mundosBinding.bocadilloMundos, "alpha", 0f, 1f);
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playSequentially(fadeOut, fadeIn);
         animatorSet.start();
-
        fadeOut.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -194,7 +197,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void coleccionablesGuide(View view) {
+        // Cambio de pestaña
         navController.navigate(R.id.navigation_collectibles);
+        // Listener de los botones
         coleccionablesBinding.botonSaltar.setOnClickListener(this::saltarGuide);
         coleccionablesBinding.botonSiguiente.setOnClickListener(this::informacionGuide);
 
@@ -210,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Colocar circulo en el centro de la pestaña correspondiente
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int screenWidth = displayMetrics.widthPixels;
         ImageView circulo = findViewById(R.id.circulo);
@@ -217,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onGlobalLayout() {
                 circulo.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
                 int tabWidth = screenWidth / 3;
                 int rightX = (tabWidth*2) + (tabWidth/2) ;
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) circulo.getLayoutParams();
@@ -226,12 +231,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Animaciones de los bocadillos
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(mundosBinding.bocadilloMundos, "alpha", 1f, 0f);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(coleccionablesBinding.bocadilloColeccionables, "alpha", 0f, 1f);
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playSequentially(fadeOut, fadeIn);
         animatorSet.start();
-
         fadeOut.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -239,11 +244,10 @@ public class MainActivity extends AppCompatActivity {
                 coleccionablesBinding.guideLayoutColeccionables.setVisibility(View.VISIBLE);
             }
         });
-
-
     }
 
     private void informacionGuide(View view) {
+        // Listener de los botones
         informacionBinding.botonSaltar.setOnClickListener(this::saltarGuide);
         informacionBinding.botonSiguiente.setOnClickListener(this::lastGuide);
 
@@ -259,12 +263,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Animaciones de los bocadillos
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(coleccionablesBinding.bocadilloColeccionables, "alpha", 1f, 0f);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(informacionBinding.bocadilloInformacion, "alpha", 0f, 1f);
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playSequentially(fadeOut, fadeIn);
         animatorSet.start();
-
         fadeOut.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -272,11 +276,12 @@ public class MainActivity extends AppCompatActivity {
                 informacionBinding.guideLayoutInformacion.setVisibility(View.VISIBLE);
             }
         });
-
     }
 
     private void lastGuide(View view) {
+        // Cambio de pestaña
         navController.navigate(R.id.navigation_characters);
+        // Listener del boton
         finalBinding.botonTerminar.setOnClickListener(this::saltarGuide);
 
         // Reproducir sonido cambio de pantalla
@@ -291,9 +296,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Animacion
         // Mantener guideLayoutFinal invisible inicialmente
         finalBinding.guideLayoutFinal.setVisibility(View.INVISIBLE);
-
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(informacionBinding.bocadilloInformacion, "alpha", 1f, 0f);
         fadeOut.setDuration(500);
         fadeOut.addListener(new AnimatorListenerAdapter() {
@@ -319,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saltarGuide(View view) {
+        // Ocultar layouts
         personajesBinding.guideLayoutPersonajes.setVisibility(View.GONE);
         mundosBinding.guideLayoutMundos.setVisibility(View.GONE);
         coleccionablesBinding.guideLayoutColeccionables.setVisibility(View.GONE);
@@ -352,7 +358,6 @@ public class MainActivity extends AppCompatActivity {
         else
             navController.navigate(R.id.navigation_collectibles);
         return true;
-
     }
 
     @Override

@@ -5,13 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
-
 import dam.pmdm.spyrothedragon.R;
 import dam.pmdm.spyrothedragon.models.World;
+
 
 public class WorldsAdapter extends RecyclerView.Adapter<WorldsAdapter.WorldsViewHolder> {
 

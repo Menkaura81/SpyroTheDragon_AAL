@@ -21,13 +21,12 @@ public class VideoActivity extends AppCompatActivity {
         // Hacer que la actividad ocupe toda la pantalla
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        setContentView(R.layout.activity_video); // Asegúrate de tener un layout para esta actividad
-
+        // Cargar layout
+        setContentView(R.layout.activity_video);
+        // Reproducir en apaisado a pantalla completa
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         // Evita que la pantalla se apague mientras se reproduce el video
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
 
         // Inicializa el VideoView
         videoView = findViewById(R.id.videoView);

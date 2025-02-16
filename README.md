@@ -1,6 +1,6 @@
 #  SPYRO THE DRAGON
 
-![spyroImagen](https://imgs.search.brave.com/Q2dy3LlCWs8S36N2xAHKeSgY8tuWK-KjVu3I1Qlds4c/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2JhL2Jh/LzEyL2JhYmExMmMw/YjUyN2M1Y2M1ZDhj/NDgzMGNkYjQ2ZjYw/LmpwZw)
+![spyroImagen](https://static.wikia.nocookie.net/logopedia/images/e/ed/Spyro_Logo_2018.png/revision/latest/scale-to-width-down/1000?cb=20191013032550)
 
 ## Introducción
 

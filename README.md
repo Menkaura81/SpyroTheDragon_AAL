@@ -24,5 +24,5 @@ Para clonar el repositorio, pinchar en "File/New/Project from Version Control" y
 
 ## Conclusiones del desarrollador
 
-El desarrollo de esta tarea ha sido complejo. No tanto por el uso de Retrofit o Firebase, que estan muy bien documentados, si no por la comunicación entre los distintos fragmentos para actualizar las listas de Pokemon, es lo que mas trabajo me ha costado implementar. Lo cierto es que Firebase es tremendamente sencillo de implementar y añade muchísimas funcionalidades a nuestra aplicación. 
-
+El desarrollo de esta tarea ha sido algo menos complejo que las dos tareas anteriores, aunque mi total ausencia de sentido estético hacer que para mi sea complicado diseñar algo vistoso. Me ha
+sorprendido lo sencillo que es reproducir audio y video en Android.

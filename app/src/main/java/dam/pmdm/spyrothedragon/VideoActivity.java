@@ -9,6 +9,8 @@ import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 public class VideoActivity extends AppCompatActivity {
 
@@ -46,9 +48,11 @@ public class VideoActivity extends AppCompatActivity {
 
         // Listener para saber cuándo termina el video
         videoView.setOnCompletionListener(mp -> {
-            // Al terminar el video, regresa a MainActivity
-            Intent intent = new Intent(VideoActivity.this, MainActivity.class);
-            startActivity(intent);
+            // Obtener el NavController asociado a la actividad
+            NavController navController = Navigation.findNavController(VideoActivity.this, R.id.navHostFragment);
+
+            // Navegar hacia el fragmento "Coleccionables"
+            navController.navigate(R.id.navigation_collectibles);
             finish(); // Cierra la actividad de video
         });
     }

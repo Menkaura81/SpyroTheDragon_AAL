@@ -6,22 +6,24 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:id="@+id/guideLayoutPersonajes"
+    android:fitsSystemWindows="true"
+    android:translationZ="10dp"
+    android:id="@+id/guideLayoutInformacion"
     android:visibility="gone">
 
     <FrameLayout
-        android:id="@+id/bocadillo_personajes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/bocadillo_informacion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom">
 
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="95dp"
+            android:layout_gravity="top|end"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="75dp"
             android:src="@drawable/bocadillo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,18 +32,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="120dp"
-            android:layout_marginStart="40dp"
-            android:text="@string/bocadillo_personajes" />
+            android:layout_gravity="top|end"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="40dp"
+            android:text="@string/guide_informacion" />
 
         <ImageView
             android:id="@+id/circulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="40dp"
-            android:layout_marginBottom="5dp"
+            android:layout_gravity="top|end"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/circulo_menu"/>
 
     </FrameLayout>
@@ -51,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_gravity="top|center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/boton_redondeado"
         android:text="@string/saltar_guia" />
 
@@ -60,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_gravity="top|center"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="240dp"
         android:background="@drawable/boton_redondeado"
         android:text="@string/siguiente" />
 </FrameLayout>

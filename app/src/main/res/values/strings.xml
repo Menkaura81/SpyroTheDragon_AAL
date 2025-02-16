@@ -13,4 +13,9 @@
     <string name="guide_4">Pulsa \"Comenzar\" y deja que Spyro te lleve volando a través de esta guía interactiva</string>
     <string name="guide_boton">Comenzar</string>
     <string name="bocadillo_personajes">Aquí podrás explorar \na todos los personajes \ndel mundo de Spyro</string>
+    <string name="saltar_guia">Saltar guia</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="guide_mundos">Aquí podrás descubrir \ntodos los maravillos mundos\n en los que Spyro vivirá\n sus aventuras</string>
+    <string name="guide_coleccionables">El mundo de Spyro tiene\n muchos tesoros\n coleccionables, descubrelos\n todos aquí</string>
+    <string name="guide_informacion">Aqui podrás consultar\n informacion acerca \nde la aplicacion.</string>
 </resources>

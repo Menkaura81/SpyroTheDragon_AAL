@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:id="@+id/guideLayoutPersonajes"
+    android:id="@+id/guideLayoutColeccionables"
     android:visibility="gone">
 
     <FrameLayout
-        android:id="@+id/bocadillo_personajes"
-        android:layout_width="wrap_content"
+        android:id="@+id/bocadillo_coleccionables"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">
 
@@ -19,8 +19,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="10dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="95dp"
             android:src="@drawable/bocadillo"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,17 +30,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="120dp"
-            android:layout_marginStart="40dp"
-            android:text="@string/bocadillo_personajes" />
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="110dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/guide_coleccionables" />
 
         <ImageView
             android:id="@+id/circulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="40dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="40dp"
             android:layout_marginBottom="5dp"
             android:src="@drawable/circulo_menu"/>
 

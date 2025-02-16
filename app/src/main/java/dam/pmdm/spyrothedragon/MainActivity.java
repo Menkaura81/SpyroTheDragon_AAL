@@ -5,14 +5,17 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -20,6 +23,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import dam.pmdm.spyrothedragon.databinding.ActivityMainBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideBinding;
+import dam.pmdm.spyrothedragon.databinding.GuideColeccionablesBinding;
+import dam.pmdm.spyrothedragon.databinding.GuideInformacionBinding;
+import dam.pmdm.spyrothedragon.databinding.GuideMundosBinding;
 import dam.pmdm.spyrothedragon.databinding.GuidePersonajesBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private GuideBinding guideBinding;
     private GuidePersonajesBinding personajesBinding;
+    private GuideMundosBinding mundosBinding;
+    private GuideColeccionablesBinding coleccionablesBinding;
+    private GuideInformacionBinding informacionBinding;
     NavController navController = null;
 
     private Boolean needToStartGuide = true; // ESTO HAY QUE CAMBIARLO A SHAREDPREFERENCES
@@ -38,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         guideBinding = binding.includeLayout;
         personajesBinding = binding.includeLayoutPersonajes;
+        mundosBinding = binding.includeLayoutMundos;
+        coleccionablesBinding = binding.includeLayoutColeccionables;
+        informacionBinding = binding.includeLayoutInformacion;
         setContentView(binding.getRoot());
 
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
@@ -76,11 +88,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void comenzarGuia(View view) {
         personajesBinding.botonSaltar.setOnClickListener(this::saltarGuide);
+        personajesBinding.botonSiguiente.setOnClickListener(this::mundosGuide);
+
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int screenWidth = displayMetrics.widthPixels;
+
+        ImageView circulo = findViewById(R.id.circulo);
+        circulo.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                circulo.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                int tabWidth = screenWidth / 3;
+                int centerX = tabWidth/2 ;
+
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) circulo.getLayoutParams();
+                params.setMarginStart(centerX - (circulo.getWidth() / 2));
+                circulo.setLayoutParams(params);
+            }
+        });
+
+
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(guideBinding.guideLayout, "alpha", 1f, 0f);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(personajesBinding.bocadilloPersonajes, "alpha", 0f, 1f);
-
+        ObjectAnimator fadeIn2 = ObjectAnimator.ofFloat(personajesBinding.circulo, "alpha", 0f, 1f);
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(fadeOut, fadeIn);
+        animatorSet.playSequentially(fadeOut, fadeIn, fadeIn2);
         animatorSet.start();
 
         fadeOut.addListener(new AnimatorListenerAdapter() {
@@ -92,9 +125,88 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void mundosGuide(View view){
+        navController.navigate(R.id.navigation_worlds);
+        mundosBinding.botonSaltar.setOnClickListener(this::saltarGuide);
+        mundosBinding.botonSiguiente.setOnClickListener(this::coleccionablesGuide);
+
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(personajesBinding.bocadilloPersonajes, "alpha", 1f, 0f);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(mundosBinding.bocadilloMundos, "alpha", 0f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(fadeOut, fadeIn);
+        animatorSet.start();
+
+        fadeOut.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                personajesBinding.guideLayoutPersonajes.setVisibility(View.GONE);
+                mundosBinding.guideLayoutMundos.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void coleccionablesGuide(View view) {
+        navController.navigate(R.id.navigation_collectibles);
+        coleccionablesBinding.botonSaltar.setOnClickListener(this::saltarGuide);
+        coleccionablesBinding.botonSiguiente.setOnClickListener(this::informacionGuide);
+
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int screenWidth = displayMetrics.widthPixels;
+        ImageView circulo = findViewById(R.id.circulo);
+        circulo.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                circulo.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                int tabWidth = screenWidth / 3;
+                int rightX = (tabWidth*2) + (tabWidth/2) ;
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) circulo.getLayoutParams();
+                params.setMarginStart(rightX - (circulo.getWidth() / 2));
+                circulo.setLayoutParams(params);
+            }
+        });
+
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(mundosBinding.bocadilloMundos, "alpha", 1f, 0f);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(coleccionablesBinding.bocadilloColeccionables, "alpha", 0f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(fadeOut, fadeIn);
+        animatorSet.start();
+
+        fadeOut.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mundosBinding.guideLayoutMundos.setVisibility(View.GONE);
+                coleccionablesBinding.guideLayoutColeccionables.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+    }
+
+    private void informacionGuide(View view) {
+        informacionBinding.botonSaltar.setOnClickListener(this::saltarGuide);
+
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(coleccionablesBinding.bocadilloColeccionables, "alpha", 1f, 0f);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(informacionBinding.bocadilloInformacion, "alpha", 0f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(fadeOut, fadeIn);
+        animatorSet.start();
+
+        fadeOut.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                coleccionablesBinding.guideLayoutColeccionables.setVisibility(View.GONE);
+                informacionBinding.guideLayoutInformacion.setVisibility(View.VISIBLE);
+            }
+        });
+
+    }
+
     private void saltarGuide(View view) {
         personajesBinding.guideLayoutPersonajes.setVisibility(View.GONE);
-
+        mundosBinding.guideLayoutMundos.setVisibility(View.GONE);
+        coleccionablesBinding.guideLayoutColeccionables.setVisibility(View.GONE);
+        informacionBinding.guideLayoutInformacion.setVisibility(View.GONE);
         needToStartGuide = false; // ESTO HAY QUE CAMBIARLO A SHAREDPREFERENCES
     }
 

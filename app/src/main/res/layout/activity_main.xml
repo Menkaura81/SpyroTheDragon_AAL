@@ -44,6 +44,25 @@
             layout="@layout/guide_personajes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        <include
+            android:id="@+id/includeLayout_mundos"
+            layout="@layout/guide_mundos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <include
+            android:id="@+id/includeLayout_coleccionables"
+            layout="@layout/guide_coleccionables"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <include
+            android:id="@+id/includeLayout_informacion"
+            layout="@layout/guide_informacion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

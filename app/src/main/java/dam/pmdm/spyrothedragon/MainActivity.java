@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-
 import dam.pmdm.spyrothedragon.databinding.ActivityMainBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideColeccionablesBinding;
@@ -142,20 +140,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(guideBinding.guideLayout, "alpha", 1f, 0f);
+        // Animación de salida deslizándose hacia la izquierda
+        ObjectAnimator slideOut = ObjectAnimator.ofFloat(guideBinding.guideLayout, "translationX", 0f, -guideBinding.guideLayout.getWidth());
+        slideOut.setDuration(500);
+        // Animación de entrada con fade-in
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(personajesBinding.bocadilloPersonajes, "alpha", 0f, 1f);
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(fadeOut, fadeIn);
-        animatorSet.start();
-
-        fadeOut.addListener(new AnimatorListenerAdapter() {
+        fadeIn.setDuration(500);
+        // Asegurar el cambio de layout antes de la animacion
+        slideOut.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 guideBinding.guideLayout.setVisibility(View.GONE);
                 personajesBinding.guideLayoutPersonajes.setVisibility(View.VISIBLE);
             }
         });
+        // Configurar y ejecutar las animaciones en secuencia
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(slideOut, fadeIn);
+        animatorSet.start();
     }
 
     private void mundosGuide(View view){
@@ -175,13 +177,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(personajesBinding.bocadilloPersonajes, "alpha", 1f, 0f);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(mundosBinding.bocadilloMundos, "alpha", 0f, 1f);
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playSequentially(fadeOut, fadeIn);
         animatorSet.start();
 
-        fadeOut.addListener(new AnimatorListenerAdapter() {
+       fadeOut.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 personajesBinding.guideLayoutPersonajes.setVisibility(View.GONE);
@@ -289,10 +292,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(informacionBinding.bocadilloInformacion, "alpha", 1f, 0f);
-        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(finalBinding.guideLayoutFinal, "alpha", 0f, 1f);
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(fadeOut, fadeIn);
-        animatorSet.start();
+        fadeOut.setDuration(2000);
 
         fadeOut.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -301,6 +301,12 @@ public class MainActivity extends AppCompatActivity {
                 finalBinding.guideLayoutFinal.setVisibility(View.VISIBLE);
             }
         });
+
+        ObjectAnimator slideIn = ObjectAnimator.ofFloat(finalBinding.guideLayoutFinal, "translationX", finalBinding.guideLayoutFinal.getWidth(), 0f);
+        slideIn.setDuration(500);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(fadeOut, slideIn);
+        animatorSet.start();
     }
 
     private void saltarGuide(View view) {

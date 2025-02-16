@@ -1,5 +1,7 @@
 #  SPYRO THE DRAGON
 
+![spyroImagen](https://imgs.search.brave.com/Q2dy3LlCWs8S36N2xAHKeSgY8tuWK-KjVu3I1Qlds4c/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2JhL2Jh/LzEyL2JhYmExMmMw/YjUyN2M1Y2M1ZDhj/NDgzMGNkYjQ2ZjYw/LmpwZw)
+
 ## Introducción
 
 Esta aplicación ha sido desarrollada para cumplir con las especificaciones de la Tarea Online 4 de la asignatura Programación Multimedia y Dispositivos Móviles del grado superior en Desarrollo de Aplicaciones Multiplataforma. En ella se puede ver el funcionamiento de una guía interactiva de uso sobre 

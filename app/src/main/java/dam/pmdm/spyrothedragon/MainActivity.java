@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.SharedPreferences;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private GuideFinalBinding finalBinding;
     NavController navController = null;
 
-    private Boolean needToStartGuide = true; // ESTO HAY QUE CAMBIARLO A SHAREDPREFERENCES
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +84,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeGuide() {
+        // Comprobamos si la guía ya ha sido mostrada anteriormente
+        SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE);
+        boolean guideShown = sharedPreferences.getBoolean("guide_shown", false);
+
+
         guideBinding.botonComenzar.setOnClickListener(this::comenzarGuia);
-        if (needToStartGuide){
+        if (!guideShown){
             guideBinding.guideLayout.setVisibility(View.VISIBLE);
 
             // Reproducir sonido inicio Guia
@@ -315,7 +320,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        needToStartGuide = false; // ESTO HAY QUE CAMBIARLO A SHAREDPREFERENCES
+
+        // Actualizamos el valor en SharedPreferences para indicar que la guía ha sido completada
+        SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("guide_shown", true);  // Marcamos que la guía ya se mostró
+        editor.apply();
     }
 
     private boolean selectedBottomMenu(@NonNull MenuItem menuItem) {

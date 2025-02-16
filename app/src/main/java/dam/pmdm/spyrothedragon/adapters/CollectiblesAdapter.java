@@ -2,19 +2,22 @@ package dam.pmdm.spyrothedragon.adapters;
 
 import android.content.Context;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import dam.pmdm.spyrothedragon.MainActivity;
 import dam.pmdm.spyrothedragon.R;
+import dam.pmdm.spyrothedragon.VideoActivity;
 import dam.pmdm.spyrothedragon.models.Collectible;
 
 public class CollectiblesAdapter extends RecyclerView.Adapter<CollectiblesAdapter.CollectiblesViewHolder> {
@@ -64,6 +67,8 @@ public class CollectiblesAdapter extends RecyclerView.Adapter<CollectiblesAdapte
                 if (clickCount == 4) {
                     // Reproducir video (puedes agregar aquí tu lógica de video)
                     Log.d("CollectiblesAdapter", "Reproduciendo video");
+                    Intent intent = new Intent(holder.itemView.getContext(), VideoActivity.class);
+                    holder.itemView.getContext().startActivity(intent);
 
                     // Resetear el contador después de reproducir el video
                     clickCount = 0;

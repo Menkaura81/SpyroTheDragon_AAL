@@ -291,22 +291,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(informacionBinding.bocadilloInformacion, "alpha", 1f, 0f);
-        fadeOut.setDuration(2000);
+        // Mantener guideLayoutFinal invisible inicialmente
+        finalBinding.guideLayoutFinal.setVisibility(View.INVISIBLE);
 
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(informacionBinding.bocadilloInformacion, "alpha", 1f, 0f);
+        fadeOut.setDuration(500);
         fadeOut.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 informacionBinding.guideLayoutInformacion.setVisibility(View.GONE);
-                finalBinding.guideLayoutFinal.setVisibility(View.VISIBLE);
+
+                // Usamos post() para asegurarnos de que getWidth() tiene un valor correcto
+                finalBinding.guideLayoutFinal.post(() -> {
+                    // Colocar guideLayoutFinal fuera de la pantalla antes de hacerlo visible
+                    finalBinding.guideLayoutFinal.setTranslationX(-finalBinding.guideLayoutFinal.getWidth());
+                    finalBinding.guideLayoutFinal.setVisibility(View.VISIBLE);
+
+                    // Animación de entrada deslizándose desde la izquierda
+                    ObjectAnimator slideIn = ObjectAnimator.ofFloat(finalBinding.guideLayoutFinal, "translationX", 0f);
+                    slideIn.setDuration(500);
+                    slideIn.start();
+                });
             }
         });
-
-        ObjectAnimator slideIn = ObjectAnimator.ofFloat(finalBinding.guideLayoutFinal, "translationX", finalBinding.guideLayoutFinal.getWidth(), 0f);
-        slideIn.setDuration(500);
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(fadeOut, slideIn);
-        animatorSet.start();
+        // Ejecutar la animación de fadeOut
+        fadeOut.start();
     }
 
     private void saltarGuide(View view) {

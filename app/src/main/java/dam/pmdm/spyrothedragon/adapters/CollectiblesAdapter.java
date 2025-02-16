@@ -10,12 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Intent;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
-
-import dam.pmdm.spyrothedragon.MainActivity;
 import dam.pmdm.spyrothedragon.R;
 import dam.pmdm.spyrothedragon.VideoActivity;
 import dam.pmdm.spyrothedragon.models.Collectible;
@@ -65,8 +61,6 @@ public class CollectiblesAdapter extends RecyclerView.Adapter<CollectiblesAdapte
 
                 // Si el número de clics alcanza 4, reproducir el video
                 if (clickCount == 4) {
-                    // Reproducir video (puedes agregar aquí tu lógica de video)
-                    Log.d("CollectiblesAdapter", "Reproduciendo video");
                     Intent intent = new Intent(holder.itemView.getContext(), VideoActivity.class);
                     holder.itemView.getContext().startActivity(intent);
 

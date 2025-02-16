@@ -380,7 +380,4 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.accept, null)
                 .show();
     }
-
-
-
 }

@@ -25,6 +25,10 @@ public class VideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video); // Asegúrate de tener un layout para esta actividad
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        // Evita que la pantalla se apague mientras se reproduce el video
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+
         // Inicializa el VideoView
         videoView = findViewById(R.id.videoView);
 

@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.MotionEvent;
 
@@ -32,6 +33,7 @@ public class CanvasView extends View {
 
         // Cargar la imagen desde @drawable
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spyro);
+        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.flame);
 
         if (bitmap != null) {
             // Escalar la imagen a un 50% del tamaño original
@@ -43,6 +45,19 @@ public class CanvasView extends View {
             float x = (getWidth() - newWidth) / 2f;
             float y = (getHeight() - newHeight) / 2f;
             canvas.drawBitmap(scaledBitmap, x, y, null);
+        }
+
+        if (bitmap2 != null) {
+            Log.d("CanvasView", "Dibujando imagen");
+            // Escalar la imagen a un 50% del tamaño original
+            int newWidth = bitmap2.getWidth() / 4;
+            int newHeight = bitmap2.getHeight() / 4;
+            Bitmap scaledBitmap2 = Bitmap.createScaledBitmap(bitmap2, newWidth, newHeight, true);
+
+            // Dibujar la imagen escalada en el centro de la pantalla
+            float x = (getWidth() - newWidth) / 2f;
+            float y = (getHeight() - newHeight) / 2f + 650;
+            canvas.drawBitmap(scaledBitmap2, x, y, null);
         }
 
         // Crear un objeto Paint para el texto

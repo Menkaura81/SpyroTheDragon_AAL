@@ -14,7 +14,6 @@ import android.view.MotionEvent;
 
 public class CanvasView extends View {
 
-
     public CanvasView(Context context) {
         super(context);
     }

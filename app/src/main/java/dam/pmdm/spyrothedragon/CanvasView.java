@@ -16,7 +16,7 @@ import android.view.animation.DecelerateInterpolator;
 
 public class CanvasView extends View {
 
-    private float animatedAlpha = 0f; // Opacidad inicial
+    private float animatedAlpha = 0f;
     private boolean soundPlayed = false;
     private Bitmap spyroBitmap;
     private Bitmap flameBitmap;
@@ -39,10 +39,10 @@ public class CanvasView extends View {
 
     // Inicializar las imagenes y el sonido
     private void init() {
-        // Inicializar SoundPool solo una vez
+        // Inicializar SoundPool
         soundPool = new SoundPool.Builder().setMaxStreams(1).build();
 
-        // Cargar las imágenes solo una vez
+        // Cargar las imágenes
         spyroBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spyro);
         flameBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.flame);
 
@@ -59,7 +59,7 @@ public class CanvasView extends View {
                 public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
                     if (status == 0) {
                         soundPool.play(sampleId, 1.0f, 1.0f, 0, 0, 1.0f);
-                        soundPlayed = true; // Marcar como reproducido
+                        soundPlayed = true;
                     }
                 }
             });
@@ -68,14 +68,14 @@ public class CanvasView extends View {
 
     // Método para iniciar la animación de fade-in
     private void startAnimation() {
-        ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f); // De 0 (transparente) a 1 (totalmente visible)
-        animator.setDuration(1500); // Duración de la animación en milisegundos
-        animator.setInterpolator(new DecelerateInterpolator()); // Suavizar el inicio de la animación
+        ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
+        animator.setDuration(1500);
+        animator.setInterpolator(new DecelerateInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 animatedAlpha = (float) animation.getAnimatedValue(); // Actualiza la opacidad
-                invalidate(); // Redibuja la vista para aplicar el cambio de opacidad
+                invalidate(); // Redibuja la vista
             }
         });
         animator.start(); // Inicia la animación
@@ -98,7 +98,7 @@ public class CanvasView extends View {
             canvas.drawBitmap(scaledBitmap, x, y, null);
         }
 
-        // Dibujar la imagen de la llama con efecto fade-in
+        // Dibujar la imagen de la llama
         if (flameBitmap != null) {
             int newWidth = flameBitmap.getWidth() / 4;
             int newHeight = flameBitmap.getHeight() / 4;
@@ -108,9 +108,9 @@ public class CanvasView extends View {
             Paint paint = new Paint();
             paint.setAlpha((int) (animatedAlpha * 255)); // Aplicar la opacidad animada
 
-            // Dibujar la imagen escalada con la opacidad animada
+            // Dibujar la imagen escalada
             float x = (getWidth() - newWidth) / 2f;
-            float y = (getHeight() - newHeight) / 2f + 650; // Posicionar la llama un poco más abajo
+            float y = (getHeight() - newHeight) / 2f + 650; // un poco más abajo
             canvas.drawBitmap(scaledBitmap2, x, y, paint);
         }
 

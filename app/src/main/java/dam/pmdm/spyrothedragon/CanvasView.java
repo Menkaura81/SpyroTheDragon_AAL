@@ -16,27 +16,28 @@ import android.view.animation.DecelerateInterpolator;
 
 public class CanvasView extends View {
 
-    private float animatedAlpha = 0f; // Opacidad inicial (transparente)
+    private float animatedAlpha = 0f; // Opacidad inicial
     private boolean soundPlayed = false;
     private Bitmap spyroBitmap;
     private Bitmap flameBitmap;
-    private SoundPool soundPool; // Crear una instancia de SoundPool
+    private SoundPool soundPool;
 
     public CanvasView(Context context) {
         super(context);
-        init(); // Inicializar imágenes y animación
+        init();
     }
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(); // Inicializar imágenes y animación
+        init();
     }
 
     public CanvasView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(); // Inicializar imágenes y animación
+        init();
     }
 
+    // Inicializar las imagenes y el sonido
     private void init() {
         // Inicializar SoundPool solo una vez
         soundPool = new SoundPool.Builder().setMaxStreams(1).build();
@@ -48,8 +49,9 @@ public class CanvasView extends View {
         startAnimation(); // Iniciar la animación al crear la vista
     }
 
+    // Reproducir el sonido
     private void startSound() {
-        // Reproducir sonido inicio Guia solo una vez
+        // Reproducir sonido dragon
         if (!soundPlayed) {
             int soundId = soundPool.load(getContext(), R.raw.fire, 1);
             soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {

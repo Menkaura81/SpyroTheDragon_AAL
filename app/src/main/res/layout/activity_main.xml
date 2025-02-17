@@ -27,11 +27,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
+    <!-- Para añadir los bocadillos de la guia -->
     <FrameLayout
         android:id="@+id/guideContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="10dp">  <!-- Asegura que esté encima -->
+        android:elevation="10dp">
 
         <include
             android:id="@+id/includeLayout"

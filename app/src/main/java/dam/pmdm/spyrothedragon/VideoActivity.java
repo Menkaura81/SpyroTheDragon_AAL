@@ -18,17 +18,17 @@ public class VideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Hacer que la actividad ocupe toda la pantalla
+        // La actividad ocupa toda la pantalla
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // Cargar layout
         setContentView(R.layout.activity_video);
-        // Reproducir en apaisado a pantalla completa
+        // Reproducir en apaisado
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         // Evita que la pantalla se apague mientras se reproduce el video
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        // Inicializa el VideoView
+
         videoView = findViewById(R.id.videoView);
 
         // Ruta del video
@@ -40,17 +40,16 @@ public class VideoActivity extends AppCompatActivity {
         mediaController.setAnchorView(videoView);
         videoView.setMediaController(mediaController);
 
-        // Inicia la reproducción
+
         videoView.start();
 
         // Listener para saber cuándo termina el video
         videoView.setOnCompletionListener(mp -> {
-            // Obtener el NavController asociado a la actividad
-            NavController navController = Navigation.findNavController(VideoActivity.this, R.id.navHostFragment);
 
+            NavController navController = Navigation.findNavController(VideoActivity.this, R.id.navHostFragment);
             // Navegar hacia el fragmento "Coleccionables"
             navController.navigate(R.id.navigation_collectibles);
-            finish(); // Cierra la actividad de video
+            finish();
         });
     }
 }

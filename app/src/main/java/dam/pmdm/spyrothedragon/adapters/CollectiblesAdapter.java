@@ -59,6 +59,7 @@ public class CollectiblesAdapter extends RecyclerView.Adapter<CollectiblesAdapte
 
                 // Si el número de clics alcanza 4, reproducir el video
                 if (clickCount == 4) {
+                    // Iniciar la actividad VideoActivity
                     Intent intent = new Intent(holder.itemView.getContext(), VideoActivity.class);
                     holder.itemView.getContext().startActivity(intent);
 
@@ -76,11 +77,6 @@ public class CollectiblesAdapter extends RecyclerView.Adapter<CollectiblesAdapte
     @Override
     public int getItemCount() {
         return list.size();
-    }
-
-    // Método para reproducir el video
-    private void playVideo() {
-
     }
 
     public static class CollectiblesViewHolder extends RecyclerView.ViewHolder {

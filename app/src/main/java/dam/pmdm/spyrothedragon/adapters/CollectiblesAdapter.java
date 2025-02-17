@@ -53,21 +53,19 @@ public class CollectiblesAdapter extends RecyclerView.Adapter<CollectiblesAdapte
 
         // Verificar si el item tiene el nombre "Gemas"
         if (collectible.getName().equals("Gemas")) {
-            // Listener solo para el Collectible específico
             holder.itemView.setOnClickListener(view -> {
                 clickCount++;
 
-                // Si el número de clics alcanza 4, reproducir el video
+                // Si el número de clics alcanza 4
                 if (clickCount == 4) {
-                    // Iniciar la actividad VideoActivity
                     Intent intent = new Intent(holder.itemView.getContext(), VideoActivity.class);
                     holder.itemView.getContext().startActivity(intent);
 
-                    // Resetear el contador después de reproducir el video
+                    // Resetear el contador
                     clickCount = 0;
                 }
 
-                // Resetear el contador si no se llega a 4 en 1 segundo
+                // Resetear el contador
                 handler.removeCallbacks(resetClickCountRunnable);
                 handler.postDelayed(resetClickCountRunnable, 1000); // Resetear después de 1 segundo
             });

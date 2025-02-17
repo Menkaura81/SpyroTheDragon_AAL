@@ -60,10 +60,9 @@ public class CanvasView extends View {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             // Crear un Intent para volver a MainActivity
             Context context = getContext();
-            Intent intent = new Intent(context, MainActivity.class);
+            Intent intent = new Intent(getContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);
-
             return true;
         }
         return super.onTouchEvent(event);

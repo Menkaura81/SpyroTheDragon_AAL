@@ -18,34 +18,50 @@ public class CanvasView extends View {
 
     private float animatedAlpha = 0f; // Opacidad inicial (transparente)
     private boolean soundPlayed = false;
+    private Bitmap spyroBitmap;
+    private Bitmap flameBitmap;
+    private SoundPool soundPool; // Crear una instancia de SoundPool
 
     public CanvasView(Context context) {
         super(context);
-        startAnimation(); // Iniciar la animación al crear la vista
+        init(); // Inicializar imágenes y animación
     }
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        startAnimation(); // Iniciar la animación al crear la vista
+        init(); // Inicializar imágenes y animación
     }
 
     public CanvasView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init(); // Inicializar imágenes y animación
+    }
+
+    private void init() {
+        // Inicializar SoundPool solo una vez
+        soundPool = new SoundPool.Builder().setMaxStreams(1).build();
+
+        // Cargar las imágenes solo una vez
+        spyroBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spyro);
+        flameBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.flame);
+
         startAnimation(); // Iniciar la animación al crear la vista
     }
 
-    private void startSound(){
-        // Reproducir sonido inicio Guia
-        SoundPool soundPool = new SoundPool.Builder().setMaxStreams(1).build();
-        int soundId = soundPool.load(getContext(), R.raw.fire, 1);
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                if (status == 0) {
-                    soundPool.play(soundId, 1.0f, 1.0f, 0, 0, 1.0f);
+    private void startSound() {
+        // Reproducir sonido inicio Guia solo una vez
+        if (!soundPlayed) {
+            int soundId = soundPool.load(getContext(), R.raw.fire, 1);
+            soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    if (status == 0) {
+                        soundPool.play(sampleId, 1.0f, 1.0f, 0, 0, 1.0f);
+                        soundPlayed = true; // Marcar como reproducido
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     // Método para iniciar la animación de fade-in
@@ -62,28 +78,18 @@ public class CanvasView extends View {
         });
         animator.start(); // Inicia la animación
 
-        // Reproducir sonido solo una vez al iniciar la animación
-        if (!soundPlayed) {
-            startSound();
-            soundPlayed = true; // Asegura que el sonido se reproduce solo una vez
-        }
+        startSound(); // Reproducir sonido solo una vez
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // Cargar la imagen de Spyro
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spyro);
-
-        // Cargar la imagen de la llama
-        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.flame);
-
         // Dibujar la imagen de Spyro
-        if (bitmap != null) {
-            int newWidth = bitmap.getWidth() / 2;
-            int newHeight = bitmap.getHeight() / 2;
-            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
+        if (spyroBitmap != null) {
+            int newWidth = spyroBitmap.getWidth() / 2;
+            int newHeight = spyroBitmap.getHeight() / 2;
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(spyroBitmap, newWidth, newHeight, true);
 
             float x = (getWidth() - newWidth) / 2f;
             float y = (getHeight() - newHeight) / 2f;
@@ -91,10 +97,10 @@ public class CanvasView extends View {
         }
 
         // Dibujar la imagen de la llama con efecto fade-in
-        if (bitmap2 != null) {
-            int newWidth = bitmap2.getWidth() / 4;
-            int newHeight = bitmap2.getHeight() / 4;
-            Bitmap scaledBitmap2 = Bitmap.createScaledBitmap(bitmap2, newWidth, newHeight, true);
+        if (flameBitmap != null) {
+            int newWidth = flameBitmap.getWidth() / 4;
+            int newHeight = flameBitmap.getHeight() / 4;
+            Bitmap scaledBitmap2 = Bitmap.createScaledBitmap(flameBitmap, newWidth, newHeight, true);
 
             // Crear un objeto Paint para controlar la opacidad
             Paint paint = new Paint();

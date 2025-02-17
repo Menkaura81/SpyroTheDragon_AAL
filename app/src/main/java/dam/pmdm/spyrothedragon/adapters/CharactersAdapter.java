@@ -1,11 +1,14 @@
 package dam.pmdm.spyrothedragon.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import dam.pmdm.spyrothedragon.AnimationActivity;
 import dam.pmdm.spyrothedragon.R;
 import dam.pmdm.spyrothedragon.models.Character;
 import java.util.List;
@@ -38,6 +41,8 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Ch
         if (character.getName().equals("Spyro")) {
             holder.itemView.setOnLongClickListener(view -> {
                 android.util.Log.d("CharactersAdapter", "Detectada pulsación larga en Spyro");
+                Intent intent = new Intent(view.getContext(), AnimationActivity.class);
+                view.getContext().startActivity(intent);
                 return true;
             });
         }

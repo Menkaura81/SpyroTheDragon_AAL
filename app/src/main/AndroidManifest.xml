@@ -13,8 +13,11 @@
         android:theme="@style/Theme.SpyroTheDragon"
         tools:targetApi="31">
         <activity
+            android:name=".AnimationActivity"
+            android:exported="false" />
+        <activity
             android:name=".VideoActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

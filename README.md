@@ -15,7 +15,7 @@ En la aplicación se hacen uso de las siguientes tecnologias:
 - RecyclerView. Para la muestra de las listas de Personajes, Mundos y coleccionables. Se utiliza RecyclerView para poder realizar dicha tarea de forma rapida y eficiente.
 - SoundPool. Para la repoducción de efectos de sonido de forma eficiente durante el cambio de vistas en la guía.
 - VideoView. Para la reproducción del video del primer easter egg.
-- Canvas. Para el segundo easter egg.
+- Canvas. Para el segundo easter egg. Ambos easter egg se ejecutan como actividades independientes, el video vuelve automaticamente a MainActivity al finalizar y el Canvas cuando el usuario pulsa en la pantalla
 
 
 ## Instrucciones de uso
@@ -26,5 +26,5 @@ Para clonar el repositorio, pinchar en "File/New/Project from Version Control" y
 
 ## Conclusiones del desarrollador
 
-El desarrollo de esta tarea ha sido algo menos complejo que las dos tareas anteriores, aunque mi total ausencia de sentido estético hacer que para mi sea complicado diseñar algo vistoso. Me ha
+El desarrollo de esta tarea ha sido algo menos complejo que las dos tareas anteriores, aunque mi total ausencia de sentido artístico hace que para mi sea complicado diseñar algo vistoso. Me ha
 sorprendido lo sencillo que es reproducir audio y video en Android.

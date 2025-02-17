@@ -20,4 +20,5 @@
     <string name="guide_informacion">Aqui podrás consultar\n informacion acerca \nde la aplicacion.</string>
     <string name="terminar">TERMINAR</string>
     <string name="guide_final">Hemos aprendido donde consultar los personajes, los mundos y los coleccionables de Spyro, también hemos aprendido donde consultar quien ha desarrollado la aplicación (soy yo... jijijiji), pulsa \"Terminar\" para continuar usando la aplicación</string>
+    <string name="listos">¡LISTOS!</string>
 </resources>

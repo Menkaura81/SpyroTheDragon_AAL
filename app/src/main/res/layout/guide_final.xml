@@ -19,7 +19,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:fontFamily="@font/alatsi_regular"
-        android:text="¡LISTOS!"/>
+        android:text="@string/listos"/>
 
     <ImageView
         android:layout_width="315dp"
@@ -54,5 +54,4 @@
             android:textStyle="bold"
             android:background="@android:color/transparent"/>
     </FrameLayout>
-
 </LinearLayout>
